@@ -1,22 +1,18 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
-Vue.use(Router);
+const routes = [
+    // 你的路由配置
+]
 
-const router = new Router({
-    routes: [
-        {
-            path: '/',
-            name: 'home',
-            component: Home,
-        },
-    ]
+const router = createRouter({
+    history: createWebHistory(),
+    routes
 })
 
 router.beforeEach((to, from, next) => {
     if (to.meta.requiresAuth) {
         const token = localStorage.getItem('token')
-        if (token || token != null) {
+        if (token) {
             next();
         } else {
             next({ name: 'login' })
